@@ -1,0 +1,152 @@
+﻿<Window x:Class="StorageForLease.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StorageForLease"
+        mc:Ignorable="d"
+        Title="MainWindow"  Height="450" Width="800">
+    <Border Padding="10">
+        <StackPanel Background="DeepSkyBlue">
+            <TextBlock 
+                Text="Welcome Customer" 
+                TextAlignment="Center" 
+                Margin="10 0 0 10"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Search Order"
+                           FontSize="18"
+                           Grid.Column="0" 
+                           TextAlignment="Center"/>
+                <TextBox x:Name="SearchBox" 
+                         Grid.Column="1" 
+                         Padding="10 0 10 0" 
+                         Text="Enter Order ID"/>
+                <Button x:Name="SearchButton" 
+                        Grid.Column="2" 
+                        Content="GO" 
+                        Click="SearchButton_Click"
+                        Margin="10 0 10 0"/>
+            </Grid>
+            <Button x:Name="ShowAllOrders" Margin="10 20 10 20" Click="ShowAllOrders_Click" Content="Show All Orders"/>
+            <TextBlock Text="Submit new Order" TextAlignment="Center"/>
+
+
+            <StackPanel Orientation="Horizontal" Width="auto">
+                <Grid Width="772">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--choose strorage attriubutes-->
+                    <TextBlock Grid.Row="0" 
+                           Grid.Column="0"
+                           Margin="20 0 0 0"
+                           Text="Choose Storage Size"
+                           FontSize="15"/>
+                    <ComboBox 
+                        x:Name="StorageSize"
+                        Grid.Row="1" 
+                        FontSize="15"
+                        Margin="20 10 20 10"
+                        />
+
+
+                    <!--choose location attributes-->
+                    <TextBlock 
+                        Grid.Row="0" 
+                        Grid.Column="1" 
+                        Margin ="20 0 0 0"
+                        Text="Choose Location" 
+                        FontSize="15"/>
+                    <ComboBox
+                        x:Name="Location"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Margin="20 10 20 10"
+                        FontSize="15"
+                        />
+
+                    <!--choose rental attributes-->
+                    <TextBlock Grid.Row="0" 
+                              Grid.Column="2" 
+                              Margin="20 0 0 0"
+                              Text="Choose Rental Period"
+                              FontSize="15"/>
+                    <TextBox x:Name="RentalTime"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                             FontSize="15"
+                             Margin="20 10 20 10"
+                             Text="Requested days"
+                             />
+                    <!-- comment attribute-->
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="3"
+                              Text="Comment" 
+                              FontSize="18"
+                              Margin="20 0 0 0"
+                              />
+                    <TextBox x:Name="Comments"
+                             Margin="0 5 0 5"
+                             Grid.Row="1"
+                             Grid.Column="3"
+                             TextWrapping="WrapWithOverflow"
+                             />
+                    <Button 
+                        Content="Submit"
+                        Click="Button_Click"
+                        Grid.Column="4" 
+                        Grid.Row="1" 
+                        Margin="5"/>
+                </Grid>
+            </StackPanel>
+            <DockPanel Width="auto" 
+                           Height="auto" 
+                           LastChildFill="True">
+
+                <DataGrid x:Name="OrderWindow"
+                                  Height="120"
+                                  AutoGenerateColumns="False"
+                                   CanUserAddRows="False"
+                                  x:FieldModifier="public"
+                                  ColumnWidth="*"
+                                  >
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Product_Id}" FontSize="15"/>
+                        <DataGridTextColumn Header="Storage Size" Binding="{Binding Size}" FontSize="15"/>
+                        <DataGridTextColumn Header="Location" Binding="{Binding Location}" FontSize="15"/>
+                        <DataGridTextColumn Header="Lease Period" Binding="{Binding LeaseTime}" FontSize="15"/>
+                        <DataGridTextColumn Header="Price" Binding="{Binding Price}" FontSize="15"/>
+                        <!---delet button in grid section-->
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Actions"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Delete Order" Click="Delete_Button"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </StackPanel>
+    </Border>
+</Window>
